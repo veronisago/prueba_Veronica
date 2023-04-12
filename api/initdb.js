@@ -1,18 +1,7 @@
-const { Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
 const csv = require('fast-csv');
-const {
-    HOST, PORT, USER, PASSWORD, DATABASE
-  } = process.env;
-
-const pool = new Pool({
-    host: HOST,
-    port: PORT,
-    user: USER,
-    password: PASSWORD,
-    database: DATABASE,
-});
+const pool = require('./db/db.js')
 
 
 async function createTablesAndPopulateData(client) {
