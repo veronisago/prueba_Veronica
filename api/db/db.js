@@ -6,7 +6,6 @@ const {
   HOST, PORT, USER, PASSWORD, DATABASE
 } = process.env;
 
-console.log(HOST, PORT, USER, PASSWORD, DATABASE)
 const pool = new Pool({
   host: HOST,
   port: PORT,
