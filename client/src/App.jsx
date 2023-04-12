@@ -6,21 +6,27 @@ function App() {
   const [select, setSelect] = useState('')
   const [input, setInput] = useState('')
   const [data, setData] = useState([])
+  const [error, setError] = useState("")
 
   const handleClick = () => {
     fetch(`http://${BASE_URL}/${select}/${input}`)
-      .then(response => response.json())
-      .then(data => {
-        let list = data.states || data
-        setData(list)
-      })
-      .catch(error => console.error(error));
+    .then(response => response.json())
+    .then(data =>{
+      if(data.message) throw new Error(data.message)
+      setData(data.states || data)
+      setError("")
+    })
+    .catch(error => {
+      setData([])
+      setError(error.message)
+    });
   }
 
 
   return (
     <div className="">
         <h1 className='m-5'>Population by Countries, States and Cities</h1>
+        {error && <h3 className='mt-5 t'>{error}!</h3>}
       <div className='w-50 mx-auto'>
       <div className="input-group">
         <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={(e) => { setSelect(e.target.value) }}>
